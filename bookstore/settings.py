@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-wvfr^0ke2o=m=4@q=-!)i%-g5d+o0qz9492gury)r(#)ogt768
 DEBUG = True
 
 ALLOWED_HOSTS = ['8000-patchamama-pp4-bookstore-53ys37uiy3.us2.codeanyapp.com',
-                 'localhost', 'https://bookstore-loans-804dfdc18356.herokuapp.com']
+                 'localhost', 'bookstore-loans-804dfdc18356.herokuapp.com']
 
 
 # Application definition
