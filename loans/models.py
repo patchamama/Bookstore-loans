@@ -34,6 +34,22 @@ class Books(models.Model):
 def add_one_month_at_today():
     return timezone.now() + timedelta(days=30)
 
+class Comment(models.Model):
+    book = models.ForeignKey(Books, on_delete=models.CASCADE,
+                             related_name="comments")
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    comment = models.TextField()
+    approved = models.BooleanField(default=False)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["created_on"]
+
+    def __str__(self):
+        return f"Comment {self.comment} by {self.name}"
+
 
 class Loans(models.Model):
     book = models.ForeignKey(Books, on_delete=models.CASCADE,
