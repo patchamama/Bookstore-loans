@@ -5,16 +5,17 @@ from cloudinary.models import CloudinaryField
 STATUS = ((0, "Returned"), (1, "Loaned"))
 
 
-class Books(models.Model):
+class Book(models.Model):
     title = models.CharField(max_length=150, unique=False)
+    slug = models.SlugField(max_length=155, unique=True)
     author = models.CharField(max_length=150, unique=False)
     number_of_items = models.IntegerField(default=1)
     items_to_loan = models.IntegerField(default=0)
-    pub_year = models.DateTimeField()
-    publisher = models.CharField(max_length=100, unique=False)
+    pub_year = models.DateTimeField(blank=True)
+    publisher = models.CharField(max_length=100, unique=False, blank=True)
     pages = models.IntegerField(default=0)
-    isbn = models.CharField(max_length=13, unique=True)
-    translators = models.CharField(max_length=200, unique=False)
+    isbn = models.CharField(max_length=13, unique=True, blank=True)
+    translators = models.CharField(max_length=200, unique=False, blank=True)
     description = models.TextField(blank=True)
     cover = CloudinaryField('image', default='placeholder')
     features = models.TextField(blank=True)
@@ -27,16 +28,14 @@ class Books(models.Model):
     def __str__(self):
         return f"{self.author} - {self.title} ({self.number_of_items} books, {self.items_to_loan} to loans)"
 
-    def number_of_loans(self):
-        return self.loans.count()
 
 
 def add_one_month_at_today():
     return timezone.now() + timedelta(days=30)
 
-class Comments(models.Model):
-    book = models.ForeignKey(Books, on_delete=models.CASCADE,
-                             related_name="comments")
+class Comment(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE,
+                             related_name="book_comments")
     name = models.CharField(max_length=100)
     email = models.EmailField()
     comment = models.TextField()
@@ -51,11 +50,11 @@ class Comments(models.Model):
         return f"Comment {self.comment} by {self.name}"
 
 
-class Loans(models.Model):
-    book = models.ForeignKey(Books, on_delete=models.CASCADE,
-                             related_name="loans")
+class Loan(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE,
+                             related_name="book_loans")
     user = models.ForeignKey(User, on_delete=models.CASCADE,
-                             related_name="loans")
+                             related_name="user_loans")
     expire = models.DateTimeField(default=add_one_month_at_today, blank=True)
     number_renowals = models.IntegerField(default=1)
     status = models.IntegerField(choices=STATUS, default=1)

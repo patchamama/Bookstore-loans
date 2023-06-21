@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-wvfr^0ke2o=m=4@q=-!)i%-g5d+o0qz9492gury)r(#)ogt768
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-patchamama-pp4-bookstore-53ys37uiy3.us2.codeanyapp.com',
+ALLOWED_HOSTS = ['8000-patchamama-pp4bookstore-qbscb5bwv1t.ws-eu100.gitpod.io',
                  'localhost', 'bookstore-loans-804dfdc18356.herokuapp.com']
 
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cloudinary',
+    'django_summernote',
     'loans',
 ]
 
