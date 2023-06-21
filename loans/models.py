@@ -34,7 +34,7 @@ class Books(models.Model):
 def add_one_month_at_today():
     return timezone.now() + timedelta(days=30)
 
-class Comment(models.Model):
+class Comments(models.Model):
     book = models.ForeignKey(Books, on_delete=models.CASCADE,
                              related_name="comments")
     name = models.CharField(max_length=100)
