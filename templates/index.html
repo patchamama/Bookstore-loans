@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- Blog Entries Column -->
+        <div class="col-12 mt-3 left">
+            <div class="row">
+            {% for book in book_list %}
+                <div class="col-md-3">
+                    <div class="card mb-3">
+                            {% if "notimage" in book.cover.url %}
+                            <img class="card-img-top"
+                                alt="Cover of {{ book.title }}"
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png">
+                            {% else %}
+                            <img class="card-img-top" alt="Not cover found" src=" {{ book.cover.url }}">
+                            {% endif %}
+                            
+                        <div class="card-body">       
+                            <a href="#" class="post-link">
+                                <h5 class="card-title ">{{ book.title }}</h5>
+                            </a>
+                            <p class="card-text">by <span class="italic">{{ book.author }}</span></p>
+                            <hr />
+                            <p class="card-text"><small class="text-muted">{{ book.created_on}} <i class="fa-solid fa-book"></i>
+                                {{ book.items_to_loan }}</small></p>
+                        </div>
+                    </div>
+                </div>
+
+            {% if forloop.counter|divisibleby:4 %}
+            </div>
+            <div class="row">
+            {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% if is_paginated %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+
+{%endblock%}
