@@ -28,6 +28,13 @@ class Book(models.Model):
     def __str__(self):
         return f"{self.author} - {self.title} ({self.number_of_items} books, {self.items_to_loan} to loans)"
 
+    def items_available_to_loan(self):
+        books_on_loan = self.items_to_loan - self.book_loans.count()
+        if (books_on_loan > 0):
+            return f" {books_on_loan} (of {self.items_to_loan})"
+        else:
+            return "0"
+
 
 
 def add_one_month_at_today():
