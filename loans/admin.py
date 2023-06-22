@@ -17,7 +17,7 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ('name', 'comment', 'book', 'created_on', 'approved')
     search_fields = ['name', 'email', 'comment']
     list_filter = ('created_on', 'approved')  
-    action = ['approve_comments']
+    actions = ['approve_comments']
 
     def approve_comments(self, request, queryset):
         queryset.update(approved=True)
