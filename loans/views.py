@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic, View
-from .models import Book
+from .models import Book, Loan
 from .forms import CommentForm
 
 
@@ -55,3 +55,16 @@ class BookDetail(View):
                 "comment_form": CommentForm()
             },
         ) 
+
+class LoanDetail(generic.ListView):
+    
+    model = Loan
+    #queryset = Loan.objects.filter(user=self.request.user).order_by('-created_on')
+    template_name = 'loans_detail.html'
+    context_object_name = 'myloans'
+
+    def get_queryset(self):
+        return Loan.objects.filter(
+            user=self.request.user
+        ).order_by('-created_on')
+

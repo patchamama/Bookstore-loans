@@ -1,0 +1,8 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Loans information</h1>
+{% for loan in myloans %}
+     {{ loan }}
+{% endfor %}
+
+{% endblock content %}

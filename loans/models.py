@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
+from django.utils import timezone
+from datetime import timedelta
 
 STATUS = ((0, "Returned"), (1, "Loaned"))
 
@@ -15,6 +17,7 @@ class Book(models.Model):
     publisher = models.CharField(max_length=100, unique=False, blank=True)
     pages = models.IntegerField(default=0)
     isbn = models.CharField(max_length=13, unique=False, blank=True)
+    language = models.CharField(max_length=3, default="eng", unique=False)
     translators = models.CharField(max_length=200, unique=False, blank=True)
     description = models.TextField(blank=True)
     cover = CloudinaryField('image', default='notimage')
@@ -64,7 +67,7 @@ class Loan(models.Model):
                              related_name="user_loans")
     expire = models.DateTimeField(default=add_one_month_at_today, blank=True)
     number_renowals = models.IntegerField(default=1)
-    status = models.IntegerField(choices=STATUS, default=1)
+    status = models.IntegerField(choices=STATUS, default=1, blank=True)
     returned_on = models.DateTimeField(blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -74,3 +77,4 @@ class Loan(models.Model):
 
     def __str__(self):
         return f"Loan {self.book} by {self.user}. Expire {self.expire}, renowals (self.number_renowals)"
+

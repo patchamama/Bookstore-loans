@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Book, Comment
+from .models import Book, Comment, Loan
 from django_summernote.admin import SummernoteModelAdmin
 
 @admin.register(Book)
@@ -23,5 +23,10 @@ class CommentAdmin(admin.ModelAdmin):
         queryset.update(approved=True)
 
 
+@admin.register(Loan)
+class LoanAdmin(admin.ModelAdmin):
 
-#admin.site.register(Book)
+    list_display = ('book', 'user', 'expire', 'number_renowals', 'status')
+    search_fields = ['book', 'user', 'expire', 'status']
+    list_filter = ('book', 'user')
+
