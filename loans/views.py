@@ -17,6 +17,7 @@ class BookDetail(View):
         queryset = Book.objects
         book = get_object_or_404(queryset, slug=slug)
         comments = book.book_comments.filter(approved=True).order_by("-created_on")
+        loans = book.book_loans.filter(user=request.user, status__lt=3).order_by("-created_on")
 
         return render(
             request,
@@ -24,6 +25,7 @@ class BookDetail(View):
             {
                 "book": book,
                 "comments": comments,
+                "loans": loans,
                 "commented": False,
                 "comment_form": CommentForm()
             },
@@ -33,6 +35,7 @@ class BookDetail(View):
         queryset = Book.objects
         book = get_object_or_404(queryset, slug=slug)
         comments = book.book_comments.filter(approved=True).order_by("-created_on")
+        
 
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
@@ -66,5 +69,7 @@ class LoanDetail(generic.ListView):
     def get_queryset(self):
         return Loan.objects.filter(
             user=self.request.user
-        ).order_by('-created_on')
+        ).order_by('-expire', 'status')
+
+
 

@@ -16,7 +16,7 @@
                 {% if "notimage" in book.featured_image.url %}
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png" width="100%">
                 {% else %}
-                <img src=" {{ book.cover.url }}" width="100%">
+                <img src="{{ book.cover.url }}" width="100%">
                 {% endif %}
             </div>
         </div>
@@ -33,13 +33,59 @@
                     {{ book.description | safe }}
                 </p>
                 <div class="row">
-                    <div class="col-1">
+                    <div class="col-2">
                         {% with comments.count as total_comments %}
                         <strong class="text-secondary"><i class="far fa-comments"></i>
                             <!-- Our total_comments variable goes before the closing strong tag -->
                             {{ total_comments }}</strong>
                         {% endwith %}
                     </div>
+
+                    <div class="col-2">
+                    {% if " 0 (" in book.items_available_to_loan %}    
+                    <span class="text-secondary"><i class="fa fa-book-open-reader"></i> <del>{{ book.items_available_to_loan }}</del></span>
+                    {% else %}
+                    <span class="text-secondary"><i class="fa fa-book"></i> {{ book.items_available_to_loan }}</span>
+                    {% endif %}
+                    </div>
+
+                    {% if user.is_authenticated %}
+                    <div class="col-3">
+                        {% if loans %}
+                            {% for loan in loans %}
+                                {% if loan.status == 1 %}
+                                    <a  class="post-link" href="#">
+                                    <span class="text-secondary"><i class="fa-solid fa-circle-minus"></i>
+                                    Remove reserve
+                                    </span>
+                                    </a>
+                                {% else %}
+                                    {% if loan.status == 2 %}
+                                        <a  class="post-link" href="#">
+                                        <span class="text-secondary"><i class="fa-solid fa-circle-check"></i>
+                                        Loaned book
+                                        </span>
+                                        </a>
+                                    {% else %}
+                                        <a  class="post-link" href="#">
+                                        <span class="text-secondary"><i class="fa-solid fa-circle-plus"></i>
+                                        Reserve the book 
+                                        </span>
+                                        </a>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            {% if book.items_available_to_loan != "0" %}
+                                <a  class="post-link" href="#">
+                                <span class="text-secondary"><i class="fa-solid fa-circle-plus"></i>
+                                Reserve the book 
+                                </span>
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

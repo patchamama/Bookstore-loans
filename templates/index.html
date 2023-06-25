@@ -6,27 +6,32 @@
     <div class="row">
 
         <!-- Blog Entries Column -->
-        <div class="col-12 mt-3 left">
+        <div class="col-12 sm-3 left">
             <div class="row">
             {% for book in book_list %}
-                <div class="col-md-3">
-                    <div class="card mb-3">
+                <div class="col-sm-3">
+                    <div class="card sm-3">
                             {% if "notimage" in book.cover.url %}
                             <img class="card-img-top"
                                 alt="Cover of {{ book.title }}"
                                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png">
                             {% else %}
-                            <img class="card-img-top" alt="Not cover found" src=" {{ book.cover.url }}">
+                                <img class="card-img-top" alt="Not cover found" src=" {{ book.cover.url }}">
                             {% endif %}
                             
                         <div class="card-body">       
                             <a href="{% url 'book_detail' book.slug %}" class="post-link">
-                                <h5 class="card-title ">{{ book.title }}</h5>
+                                <h5 class="card-title">{{ book.title }}</h5>
                             </a>
                             <p class="card-text">by <span class="italic">{{ book.author }}</span></p>
                             <hr />
-                            <p class="card-text"><small class="text-muted">{{ book.created_on}} <i class="fa-solid fa-book"></i>
-                                {{ book.items_available_to_loan }}</small></p>
+                            <p class="card-text"><small class="text-muted">{{ book.created_on}}
+                                {% if " 0 (" in book.items_available_to_loan %}    
+                                    <i class="fa fa-book-open-reader"></i> <del>{{ book.items_available_to_loan }}</del>
+                                {% else %}
+                                    <i class="fa fa-book"></i> {{ book.items_available_to_loan }}
+                                {% endif %}
+                            </small></p>
                         </div>
                     </div>
                 </div>

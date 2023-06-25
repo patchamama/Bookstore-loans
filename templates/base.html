@@ -35,24 +35,31 @@
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}"><i class="fa-solid fa-house"></i> Home</a>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'loan_detail' %}">My Loans</a>
+                        <a class="nav-link" href="{% url 'loan_detail' %}"><i class="fa-solid fa-book-open-reader"></i> My Loans</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+                        <a class="nav-link" href="{% url 'account_logout' %}"><i class="fa-solid fa-person-running"></i> Logout</a>
                     </li>
+                    <span class="navbar-brand nav-link font-16"><small>(<i class="fa-solid fa-user"></i> <span class="italic">{{ request.user }}</span>)</small></span>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
+                        <a class="nav-link" href="{% url 'account_signup' %}"><i class="fa-regular fa-id-card"></i> Register</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+                        <a class="nav-link" href="{% url 'account_login' %}"><i class="fa-solid fa-arrow-right-to-bracket"></i> Login</a>
                     </li>
                     {% endif %}
                 </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <div class="input-group">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </div>
+                </form>
             </div>
         </div>
     </nav>
@@ -72,6 +79,7 @@
             <i class="fab fa-instagram-square ms-3"></i>
             <i class="fab fa-youtube-square ms-3"></i></p>
     </footer>
+    <script src="https://kit.fontawesome.com/47939453e8.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

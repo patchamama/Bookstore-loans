@@ -6,6 +6,24 @@ body {
     font-style: italic;
 }
 
+.even {
+	background-color: rgba(86,61,124,.15);
+}	
+
+.bold {
+    font-weight: 600;
+}
+
+.borders {
+    border: 1px solid rgba(86,61,124,.2);
+}
+
+.font-16 {
+    font-size: 16px;
+    padding: 8px;
+
+}
+
 footer a {
     text-decoration: none;
     color: #fff;

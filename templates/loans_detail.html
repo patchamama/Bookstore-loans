@@ -1,8 +1,45 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>Loans information</h1>
-{% for loan in myloans %}
-     {{ loan }}
-{% endfor %}
+{% load crispy_forms_tags %}
+
+<div class="container">
+<h5>Loans information</h5>
+
+<div class="row"> 
+     <div class="borders bold even col-12 col-sm-3">Author</div>
+     <div class="borders bold even col-12 col-sm-3 italic">Title</div>
+     <div class="borders bold even col-12 col-sm-2">Expire</div>
+     <div class="borders bold even col-12 col-sm-2">Status</div> 
+     <div class="borders bold even col-12 col-sm-2">Renowals</div>
+</div>
+<div class="row"> 
+     {% for loan in myloans %}
+          <div class="borders {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %} col-12 col-sm-3">
+               {{ loan.book.author }}
+          </div>
+          <div class="borders {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %} col-12 col-sm-3 italic">
+               <a  class="post-link" href="{% url 'book_detail' loan.book.slug %}">{{ loan.book.title }}</a>
+          </div>
+          <div class="borders {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %} col-12 col-sm-2">
+               {{ loan.expire.date }}
+          </div>
+          <div class="borders {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %} col-12 col-sm-2">
+               {{ loan.show_status }}
+               {% if loan.status == 1 %}
+                    <a alt="Remove reserve" href="#"><i class="fa-solid fa-circle-minus"></i></a>
+               {% endif %}
+          </div>
+          <div class="borders {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %} col-12 col-sm-2">
+               {{ loan.number_renowals }}
+               {% if "Loan" in loan.show_status %}
+                    {% if loan.number_renowals < 3 %}
+                         <a href="#"><i class="fa-solid fa-calendar-plus"></i></a>
+                    {% endif %}
+               {% endif %}
+          </div>
+     {% endfor %}   
+</div>
+
+</div>
 
 {% endblock content %}

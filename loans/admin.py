@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Book, Comment, Loan
 from django_summernote.admin import SummernoteModelAdmin
+from django.contrib.auth import get_user_model
 
 @admin.register(Book)
 class PostAdmin(SummernoteModelAdmin):
@@ -26,7 +27,12 @@ class CommentAdmin(admin.ModelAdmin):
 @admin.register(Loan)
 class LoanAdmin(admin.ModelAdmin):
 
+    def get_changeform_initial_data(self, request):
+        get_data = super(LoanAdmin, self).get_changeform_initial_data(request)
+        get_data['user'] = request.user.pk
+        return get_data
+
     list_display = ('book', 'user', 'expire', 'number_renowals', 'status')
-    search_fields = ['book', 'user', 'expire', 'status']
+    search_fields = ['book', 'user']
     list_filter = ('book', 'user')
 
