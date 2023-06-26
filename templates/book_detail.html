@@ -5,18 +5,18 @@
 <div class="masthead">
     <div class="container">
         <div class="row g-0">
-            <div class="col-md-6 masthead-text">
+            <div class="col-md-10 masthead-text">
                 <!-- Post title goes in these h1 tags -->
                 <h1 class="post-title">{{ book.title }}</h1>
                 <!-- Post author goes before the | the post's created date goes after -->
                 <p class="post-subtitle">{{ book.author }} | {{ book.created_on }}</p>
             </div>
-            <div class="d-none d-md-block col-md-6 masthead-image">
+            <div class="d-none d-md-block col-md-2">
                 <!-- The featured image URL goes in the src attribute -->
                 {% if "notimage" in book.featured_image.url %}
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png" width="100%">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png" width= "180px" height="100%">>
                 {% else %}
-                <img src="{{ book.cover.url }}" width="100%">
+                <img src="{{ book.cover.url }}" width= "180px" height="100%">
                 {% endif %}
             </div>
         </div>
@@ -27,6 +27,11 @@
     <div class="row">
         <div class="col card mb-4  mt-3 left  top">
             <div class="card-body">
+                {% if message_action %}
+                <div class="alert alert-success" role="alert">
+                    {{ message_action }}
+                </div>
+                {% endif %}
                 <!-- The post content goes inside the card-text. -->
                 <!-- Use the | safe filter inside the template tags -->
                 <p class="card-text ">
@@ -51,37 +56,36 @@
 
                     {% if user.is_authenticated %}
                     <div class="col-3">
+                        
                         {% if loans %}
                             {% for loan in loans %}
                                 {% if loan.status == 1 %}
-                                    <a  class="post-link" href="#">
-                                    <span class="text-secondary"><i class="fa-solid fa-circle-minus"></i>
-                                    Remove reserve
-                                    </span>
-                                    </a>
+                                    <form method="post" class="form-inline">
+                                    <input type="hidden" name="action" value="remove_reserved">
+                                    <button class="btn btn-link post-link" type="submit"><i class="fa-solid fa-circle-minus"></i> Remove reserve</button>
+                                    {% csrf_token %}
+                                    </form>                 
                                 {% else %}
                                     {% if loan.status == 2 %}
-                                        <a  class="post-link" href="#">
                                         <span class="text-secondary"><i class="fa-solid fa-circle-check"></i>
                                         Loaned book
                                         </span>
-                                        </a>
                                     {% else %}
-                                        <a  class="post-link" href="#">
-                                        <span class="text-secondary"><i class="fa-solid fa-circle-plus"></i>
-                                        Reserve the book 
-                                        </span>
-                                        </a>
+                                        <form method="post" class="form-inline">
+                                        <input type="hidden" name="action" value="add_reserved">
+                                        <button class="btn btn-link post-link" type="submit"><i class="fa-solid fa-circle-plus"></i> Reserve the book</button>
+                                        {% csrf_token %} 
+                                        </form>
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}
                         {% else %}
                             {% if book.items_available_to_loan != "0" %}
-                                <a  class="post-link" href="#">
-                                <span class="text-secondary"><i class="fa-solid fa-circle-plus"></i>
-                                Reserve the book 
-                                </span>
-                                </a>
+                                <form method="post" class="form-inline">
+                                <input type="hidden" name="action" value="add_reserved">
+                                <button class="btn btn-link post-link" type="submit"><i class="fa-solid fa-circle-plus"></i> Reserve the book</button>
+                                {% csrf_token %} 
+                                </form>
                             {% endif %}
                         {% endif %}
                     </div>
@@ -119,7 +123,6 @@
         </div>
         <div class="col-md-4 card mb-4  mt-3 ">
             <div class="card-body">
-                <!-- For later -->
                 {% if commented %}
                 <div class="alert alert-success" role="alert">
                     Your comment is awaiting approval
@@ -130,7 +133,7 @@
                 <p>Posting as: {{ user.username }}</p>
                 <form method="post" style="margin-top: 1.3em;">
                     {{ comment_form | crispy }}
-                    {% csrf_token %}
+                    {% csrf_token %} 
                     <button type="submit" class="btn btn-signup btn-lg">Submit</button>
                 </form>
                 {% endif %}

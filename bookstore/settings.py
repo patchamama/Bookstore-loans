@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-wvfr^0ke2o=m=4@q=-!)i%-g5d+o0qz9492gury)r(#)ogt768
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-patchamama-pp4bookstore-a563zo39rur.ws-eu100.gitpod.io',
+ALLOWED_HOSTS = ['8000-patchamama-pp4bookstore-ybvttetdp63.ws-eu100.gitpod.io',
                  'localhost', 'bookstore-loans-804dfdc18356.herokuapp.com']
 
 

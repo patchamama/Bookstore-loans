@@ -34,5 +34,5 @@ class LoanAdmin(admin.ModelAdmin):
 
     list_display = ('book', 'user', 'expire', 'number_renowals', 'status')
     search_fields = ['book', 'user']
-    list_filter = ('book', 'user')
+    list_filter = ('user',)
 

@@ -4,7 +4,11 @@
 
 <div class="container">
 <h5>Loans information</h5>
-
+{% if message_action %}
+     <div class="alert alert-success" role="alert">
+     {{ message_action }}
+     </div>
+     {% endif %}
 <div class="row"> 
      <div class="borders bold even col-12 col-sm-3">Author</div>
      <div class="borders bold even col-12 col-sm-3 italic">Title</div>
@@ -32,6 +36,18 @@
                     <button class="btn btn-link" type="submit"><i class="fa-solid fa-circle-minus"></i></button>
                     {% csrf_token %}    
                {% endif %}
+               {% if loan.status == 4 %}
+               <input type="hidden" name="id" value="{{ loan.id }}">
+               <input type="hidden" name="action" value="add_reserved">
+               <button class="btn btn-link" type="submit"><i class="fa-solid fa-circle-plus"></i></button>
+               {% csrf_token %}    
+               {% endif %}
+               {% if loan.status == 3 %}
+               <input type="hidden" name="id" value="{{ loan.id }}">
+               <input type="hidden" name="action" value="add_reserved">
+               <button class="btn btn-link" type="submit"><i class="fa-solid fa-circle-plus"></i></button>
+               {% csrf_token %}    
+               {% endif %}               
                </form> 
           </div>
           <div class="borders {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %} col-12 col-sm-2">

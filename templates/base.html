@@ -35,22 +35,22 @@
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}"><i class="fa-solid fa-house"></i> Home</a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}"> Home</a>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'loan_detail' %}"><i class="fa-solid fa-book-open-reader"></i> My Loans</a>
+                        <a class="nav-link" href="{% url 'loan_detail' %}"> My Loans</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_logout' %}"><i class="fa-solid fa-person-running"></i> Logout</a>
+                        <a class="nav-link" href="{% url 'account_logout' %}"> Logout</a>
                     </li>
                     <span class="navbar-brand nav-link font-16"><small>(<i class="fa-solid fa-user"></i> <span class="italic">{{ request.user }}</span>)</small></span>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_signup' %}"><i class="fa-regular fa-id-card"></i> Register</a>
+                        <a class="nav-link" href="{% url 'account_signup' %}"> Register</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_login' %}"><i class="fa-solid fa-arrow-right-to-bracket"></i> Login</a>
+                        <a class="nav-link" href="{% url 'account_login' %}"> Login</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -81,5 +81,14 @@
     </footer>
     <script src="https://kit.fontawesome.com/47939453e8.js" crossorigin="anonymous"></script>
 </body>
+<script>
+    alertElements = document.getElementsByClassName("alert-success")
+    if (alertElements.length > 0) {
+        alertElement = alertElements[0]
+        setTimeout(function() {
+            alertElement.style.display = "none";
+        }, 2000);
+    }
+</script>
 
 </html>
