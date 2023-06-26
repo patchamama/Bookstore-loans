@@ -1,7 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
+from django.http import HttpResponseRedirect
 from .models import Book, Loan
 from .forms import CommentForm
+from django.utils import timezone
+from datetime import timedelta
 
 
 class BookList(generic.ListView):
@@ -70,6 +73,39 @@ class LoanDetail(generic.ListView):
         return Loan.objects.filter(
             user=self.request.user
         ).order_by('-expire', 'status')
+
+    def post(self, request, *args, **kwargs):
+        queryset = Loan.objects
+        loans = Loan.objects.filter(
+            user=self.request.user
+        ).order_by('-expire', 'status')
+
+        print(request.POST)
+        if (request.POST['action'] == "remove_reserved"):
+            record_id = request.POST['id']
+            #loandata = get_object_or_404(Loan, id=record_id)
+            if Loan.objects.filter(id=record_id).exists():
+                #Loan.objects.filter(id=record_id).delete()
+                loandata = Loan.objects.get(id=record_id)
+                loandata.status = 4 ## Reserved to (4, "Canceled")
+                loandata.save()
+
+        if (request.POST['action'] == "add_renowals"):
+            record_id = request.POST['id']
+            if Loan.objects.filter(id=record_id).exists():
+                #Loan.objects.filter(id=record_id).delete()
+                loandata = Loan.objects.get(id=record_id)
+                loandata.expire = loandata.expire + timedelta(days=30)
+                loandata.number_renowals = loandata.number_renowals + 1
+                loandata.save()
+
+        return render(
+            request,
+            "loans_detail.html",
+            {
+                "myloans": loans
+            },
+        ) 
 
 
 

@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-wvfr^0ke2o=m=4@q=-!)i%-g5d+o0qz9492gury)r(#)ogt768
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-patchamama-pp4bookstore-qbscb5bwv1t.ws-eu100.gitpod.io',
+ALLOWED_HOSTS = ['8000-patchamama-pp4bookstore-a563zo39rur.ws-eu100.gitpod.io',
                  'localhost', 'bookstore-loans-804dfdc18356.herokuapp.com']
 
 
@@ -58,6 +58,8 @@ SITE_ID = 1
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
@@ -155,3 +157,4 @@ STATIC_ROOT  = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
