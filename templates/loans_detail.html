@@ -22,7 +22,7 @@
                {{ loan.book.author }}
           </div>
           <div class="borders {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %} col-12 col-sm-3 italic">
-               <a  class="post-link" href="{% url 'book_detail' loan.book.slug %}">{{ loan.book.title }}</a>
+               <a  class="book-link" href="{% url 'book_detail' loan.book.slug %}">{{ loan.book.title }}</a>
           </div>
           <div class="borders {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %} col-12 col-sm-2">
                {{ loan.expire.date }}

@@ -6,17 +6,44 @@
     <div class="container">
         <div class="row g-0">
             <div class="col-md-10 masthead-text">
-                <!-- Post title goes in these h1 tags -->
-                <h1 class="post-title">{{ book.title }}</h1>
-                <!-- Post author goes before the | the post's created date goes after -->
-                <p class="post-subtitle">{{ book.author }} | {{ book.created_on }}</p>
+                <br>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <div class="back-title">
+                            <!-- Post title goes in these h1 tags -->
+                            <h1 class="book-title">{{ book.title }}</h1>
+                            <!-- Post author goes before the | the post's created date goes after -->
+                            <p class="book-subtitle">{{ book.author }}</p>
+                        </div>
+                     </div>
+                    <div class="col-md-1"></div>
+                </div>
+                    
+                <br><br>
+                <div class="row">
+                    <div class="d-none d-md-block col-md-2 text-end">Pages:</div>
+                    <div class="d-none d-md-block col-md-1"><span class="fiel_value">{{ book.pages }}</span></div>
+                    <div class="d-none d-md-block col-md-2 text-end">Pub. year:</div>
+                    <div class="d-none d-md-block col-md-1"><span class="fiel_value">{{ book.pub_year.year }}</span></div>
+                    <div class="d-none d-md-block col-md-2 text-end">isbn:</div>
+                    <div class="d-none d-md-block col-md-1"><span class="fiel_value">{{ book.isbn }}</span></div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="d-none d-md-block col-md-2 text-end">Language:</div>
+                    <div class="d-none d-md-block col-md-1"><span class="fiel_value">{{ book.language }}</span></div>
+                    <div class="d-none d-md-block col-md-2 text-end">Features:</div>
+                    <div class="d-none d-md-block col-md-6 fiel_value"><span class="">{{ book.features | safe }}</span></div>
+                </div>
+                <br>
             </div>
             <div class="d-none d-md-block col-md-2">
                 <!-- The featured image URL goes in the src attribute -->
                 {% if "notimage" in book.featured_image.url %}
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png" width= "180px" height="100%">>
                 {% else %}
-                <img src="{{ book.cover.url }}" width= "180px" height="100%">
+                <img src="{{ book.cover.url }}" width="auto" height="320px">
                 {% endif %}
             </div>
         </div>
@@ -62,7 +89,7 @@
                                 {% if loan.status == 1 %}
                                     <form method="post" class="form-inline">
                                     <input type="hidden" name="action" value="remove_reserved">
-                                    <button class="btn btn-link post-link" type="submit"><i class="fa-solid fa-circle-minus"></i> Remove reserve</button>
+                                    <button class="btn btn-link book-link" type="submit"><i class="fa-solid fa-circle-minus"></i> Remove reserve</button>
                                     {% csrf_token %}
                                     </form>                 
                                 {% else %}
@@ -73,7 +100,7 @@
                                     {% else %}
                                         <form method="post" class="form-inline">
                                         <input type="hidden" name="action" value="add_reserved">
-                                        <button class="btn btn-link post-link" type="submit"><i class="fa-solid fa-circle-plus"></i> Reserve the book</button>
+                                        <button class="btn btn-link book-link" type="submit"><i class="fa-solid fa-circle-plus"></i> Reserve the book</button>
                                         {% csrf_token %} 
                                         </form>
                                     {% endif %}
@@ -83,7 +110,7 @@
                             {% if book.items_available_to_loan != "0" %}
                                 <form method="post" class="form-inline">
                                 <input type="hidden" name="action" value="add_reserved">
-                                <button class="btn btn-link post-link" type="submit"><i class="fa-solid fa-circle-plus"></i> Reserve the book</button>
+                                <button class="btn btn-link book-link" type="submit"><i class="fa-solid fa-circle-plus"></i> Reserve the book</button>
                                 {% csrf_token %} 
                                 </form>
                             {% endif %}
