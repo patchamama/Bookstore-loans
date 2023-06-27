@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
 from django.http import HttpResponseRedirect
-from .models import Book, Loan
+from .models import Book, Loan, Comment
 from .forms import CommentForm
 from django.utils import timezone
 from datetime import timedelta
@@ -85,6 +85,13 @@ class BookDetail(View):
                     #loandata.save()
                     loans = book.book_loans.filter(user=request.user, status__lt=3).order_by("-created_on")
                     message_action = "Reserve removed!"
+
+            if (request.POST['action'] == "delete_comment"):
+                if Comment.objects.filter(name=request.user, book=book).exists():
+                    Comment.objects.filter(name=request.user, book=book).delete()
+                    comments = Comment.objects.filter(book=book).order_by("-created_on")
+                    message_action = "Comment deleted!"
+
         else:
             comment_form = CommentForm(data=request.POST)
             if comment_form.is_valid():

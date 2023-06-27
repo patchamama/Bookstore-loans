@@ -135,11 +135,18 @@
                 <div class="comments" style="padding: 10px;">
                     <p class="font-weight-bold">
                         <!-- The commenter's name goes here. Check the model if you're not sure what that is -->
+                        <form method="post" class="form-inline">
+                        {% if comment.name == user.username %}                           
+                            <input type="hidden" name="action" value="delete_comment">
+                            <button class="btn btn-link book-link" type="submit">[<i class="fa-regular fa-trash-can"></i> Delete comment]</button>
+                            {% csrf_token %} 
+                        {% endif %}
                         {{ comment.name }}
-                        <span class=" text-muted font-weight-normal">
+                        <span class="text-muted font-weight-normal">
                             <!-- The comment's created date goes here -->
                             {{ comment.created_on }}
                         </span> wrote:
+                        </form>
                     </p>
                     <!-- The body of the comment goes before the | -->
                     {{ comment.comment | linebreaks }}
