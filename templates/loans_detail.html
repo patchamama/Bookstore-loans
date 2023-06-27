@@ -33,19 +33,19 @@
                {% if loan.status == 1 %}
                     <input type="hidden" name="id" value="{{ loan.id }}">
                     <input type="hidden" name="action" value="remove_reserved">
-                    <button class="btn btn-link" type="submit"><i class="fa-solid fa-circle-minus"></i></button>
+                    <button class="btn btn-link book-link" type="submit"><i class="fa-solid fa-circle-minus"></i></button>
                     {% csrf_token %}    
                {% endif %}
                {% if loan.status == 4 %}
                <input type="hidden" name="id" value="{{ loan.id }}">
                <input type="hidden" name="action" value="add_reserved">
-               <button class="btn btn-link" type="submit"><i class="fa-solid fa-circle-plus"></i></button>
+               <button class="btn btn-link book-link" type="submit"><i class="fa-solid fa-circle-plus"></i></button>
                {% csrf_token %}    
                {% endif %}
                {% if loan.status == 3 %}
                <input type="hidden" name="id" value="{{ loan.id }}">
                <input type="hidden" name="action" value="add_reserved">
-               <button class="btn btn-link" type="submit"><i class="fa-solid fa-circle-plus"></i></button>
+               <button class="btn btn-link book-link" type="submit"><i class="fa-solid fa-circle-plus"></i></button>
                {% csrf_token %}    
                {% endif %}               
                </form> 
@@ -57,7 +57,7 @@
                     <input type="hidden" name="id" value="{{ loan.id }}">
                     <input type="hidden" name="action" value="add_renowals">
                     {% if loan.number_renowals < 3 %}
-                    <button class="btn btn-link" type="submit"><i class="fa-solid fa-calendar-plus"></i></button>
+                    <button class="btn btn-link book-link" type="submit"><i class="fa-solid fa-calendar-plus"></i></button>
                     {% endif %}
                     {% csrf_token %} 
                {% endif %}

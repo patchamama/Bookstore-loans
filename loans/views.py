@@ -5,6 +5,7 @@ from .models import Book, Loan
 from .forms import CommentForm
 from django.utils import timezone
 from datetime import timedelta
+from django.db.models import Q
 
 
 class BookList(generic.ListView):
@@ -12,6 +13,22 @@ class BookList(generic.ListView):
     queryset = Book.objects.order_by('-created_on')
     template_name = 'index.html'
     paginate_by = 12
+
+    def post(self, request, *args, **kwargs):
+        if ('q' in request.POST):
+            search = request.POST['q']
+            qsearch = Q(Q(title__icontains=search) | Q(author__icontains=search) | Q(features__icontains=search))
+            booklist = Book.objects.filter(qsearch).order_by('-created_on')
+        else:
+            booklist = Book.objects.all()
+
+        return render(
+        request,
+        "index.html",
+        {
+            "book_list": booklist,
+        },
+        )
 
 
 class BookDetail(View):
