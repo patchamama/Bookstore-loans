@@ -2,53 +2,52 @@
 
 {% load crispy_forms_tags %}
 
-<div class="masthead">
-    <div class="container">
-        <div class="row g-0">
-            <div class="col-md-10 masthead-text">
-                <br> 
-                <div class="row"> 
-                    
-                    <div class="col-md-11">
-                        <div class="back-title">
-                            <!-- Post title goes in these h1 tags -->
-                            <h1 class="book-title">{{ book.title }}</h1>
-                            <!-- Post author goes before the | the post's created date goes after -->
-                            <p class="book-subtitle">{{ book.author }}</p>
-                        </div>
-                     </div>
-                    <div class="col-md-1"></div>
-                </div>
-                    
-                <br>
-                <div class="row">
-                    <div class="d-none d-md-block col-md-2 text-end">Pages:</div>
-                    <div class="d-none d-md-block col-md-1"><span class="fiel_value">{{ book.pages }}</span></div>
-                    <div class="d-none d-md-block col-md-2 text-end">Pub. year:</div>
-                    <div class="d-none d-md-block col-md-1"><span class="fiel_value">{{ book.pub_year.year }}</span></div>
-                    <div class="d-none d-md-block col-md-2 text-end">isbn:</div>
-                    <div class="d-none d-md-block col-md-1"><span class="fiel_value">{{ book.isbn }}</span></div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="d-none d-md-block col-md-2 text-end">Language:</div>
-                    <div class="d-none d-md-block col-md-1"><span class="fiel_value">{{ book.language }}</span></div>
-                    <div class="d-none d-md-block col-md-2 text-end">Features:</div>
-                    <div class="d-none d-md-block col-md-6 fiel_value"><span class="">{{ book.features | safe }}</span></div>
-                </div>
-                <br>
+<div class="container">
+    <div class="row g-0">
+        <div class="col-md-10 masthead-text">
+            <br> 
+            <div class="row"> 
+                
+                <div class="col-md-11">
+                    <div class="back-title">
+                        <!-- Post title goes in these h1 tags -->
+                        <h1 class="book-title">{{ book.title }}</h1>
+                        <!-- Post author goes before the | the post's created date goes after -->
+                        <p class="book-subtitle">{{ book.author }}</p>
+                    </div>
+                    </div>
+                <div class="col-md-1"></div>
             </div>
-            <div class="d-none d-md-block col-md-2">
-                <!-- The featured image URL goes in the src attribute -->
-                {% if "notimage" in book.featured_image.url %}
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png" width= "180px" height="100%">>
-                {% else %}
-                <img src="{{ book.cover.url }}" width="auto" height="320px">
-                {% endif %}
+                
+            <br>
+            <div class="row">
+                <div class="d-none d-md-block col-md-2 text-end">Pages:</div>
+                <div class="d-none d-md-block col-md-1"><span class="fiel_value">{{ book.pages }}</span></div>
+                <div class="d-none d-md-block col-md-2 text-end">Pub. year:</div>
+                <div class="d-none d-md-block col-md-1"><span class="fiel_value">{{ book.pub_year.year }}</span></div>
+                <div class="d-none d-md-block col-md-2 text-end">isbn:</div>
+                <div class="d-none d-md-block col-md-1"><span class="fiel_value">{{ book.isbn }}</span></div>
             </div>
+            <br>
+            <div class="row">
+                <div class="d-none d-md-block col-md-2 text-end">Language:</div>
+                <div class="d-none d-md-block col-md-1"><span class="fiel_value">{{ book.language }}</span></div>
+                <div class="d-none d-md-block col-md-2 text-end">Features:</div>
+                <div class="d-none d-md-block col-md-6 fiel_value"><span class="">{{ book.features | safe }}</span></div>
+            </div>
+            <br>
+        </div>
+        <div class="col-12 col-md-2 cover_image">
+            <!-- The featured image URL goes in the src attribute -->
+            {% if "notimage" in book.featured_image.url %}
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png" width= "180px" height="100%">>
+            {% else %}
+            <img src="{{ book.cover.url }}" width="auto" height="320px">
+            {% endif %}
         </div>
     </div>
 </div>
+
 
 <div class="container">
     <div class="row">
@@ -138,6 +137,7 @@
                         <form method="post" class="form-inline">
                         {% if comment.name == user.username %}                           
                             <input type="hidden" name="action" value="delete_comment">
+                            <input type="hidden" name="id" value="{{ comment.id }}">
                             <button class="btn btn-link book-link" type="submit">[<i class="fa-regular fa-trash-can"></i> Delete comment]</button>
                             {% csrf_token %} 
                         {% endif %}

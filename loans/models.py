@@ -44,6 +44,10 @@ class Book(models.Model):
         else:
             return "0"
 
+    def comments_approved(self):
+        no_comments = self.book_comments.filter(approved=True).count()
+        return no_comments
+
 
 
 class Comment(models.Model):

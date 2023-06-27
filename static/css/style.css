@@ -188,3 +188,30 @@ footer a {
     background: transparent;
     border: none;
 }
+
+/* Tables of details without Head and with the fieldname+value */
+@media screen and (max-width: 576px) {
+
+   .field_author:before {
+        content: "Author: ";
+   }
+   .field_title:before {
+        content: "Title: ";
+   }
+   .field_expire:before {
+        content: "Expire: ";
+   }
+   .field_status:before {
+        content: "Status: ";
+   }
+   .field_renowals:before {
+        content: "Renowals: ";
+   }
+
+}
+
+@media screen and (max-width: 768px) {
+    .cover_image {
+        text-align: center;
+   }
+}

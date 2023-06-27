@@ -14,7 +14,6 @@ class BookList(generic.ListView):
     queryset = Book.objects.order_by('-created_on')
     template_name = 'index.html'
     paginate_by = 12
-
     
 
     def post(self, request, *args, **kwargs):
@@ -90,8 +89,10 @@ class BookDetail(View):
                     message_action = "Reserve removed!"
 
             if (request.POST['action'] == "delete_comment"):
-                if Comment.objects.filter(name=request.user, book=book).exists():
-                    Comment.objects.filter(name=request.user, book=book).delete()
+                comment_id = request.POST['id']
+                if Comment.objects.filter(id=comment_id).exists():
+                    Comment.objects.filter(id=comment_id).delete()
+                    #Comment.objects.filter(name=request.user, book=book).delete()
                     comments = Comment.objects.filter(book=book).order_by("-created_on")
                     message_action = "Comment deleted!"
 
