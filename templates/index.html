@@ -8,6 +8,11 @@
         <!-- Blog Entries Column -->
         <div class="col-12 sm-3 left">
             <div class="row">
+            {% if book_list.count == 0 %}
+            <div class="alert alert-warning" role="alert">
+                No books found.
+            </div>
+            {% endif %}
             {% for book in book_list %}
                 <div class="col-sm-3">
                     <div class="card sm-3">

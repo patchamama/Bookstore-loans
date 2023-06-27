@@ -9,68 +9,73 @@
      {{ message_action }}
      </div>
      {% endif %}
-<div class="row"> 
-     <div class="borders bold even d-none d-sm-block col-sm-3">Author</div>
-     <div class="borders bold even d-none d-sm-block col-sm-3 italic">Title</div>
-     <div class="borders bold even d-none d-sm-block col-sm-2">Expire</div>
-     <div class="borders bold even d-none d-sm-block col-sm-2">Status</div> 
-     <div class="borders bold even d-none d-sm-block col-sm-2">Renowals</div>
-</div>
-<div class="row"> 
-     {% for loan in myloans %}
-          <div class="field_author borders {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %} col-12 col-sm-3">
-               {{ loan.book.author }}
+     {% if myloans.count == 0 %}
+          <div class="alert alert-warning" role="alert">
+               No loans found.
           </div>
-          <div class="field_title borders {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %} col-12 col-sm-3 italic">
-               <a  class="book-link" href="{% url 'book_detail' loan.book.slug %}">{{ loan.book.title }}</a>
+     {% else %}
+          <div class="row"> 
+               <div class="borders bold even d-none d-sm-block col-sm-3">Author</div>
+               <div class="borders bold even d-none d-sm-block col-sm-3 italic">Title</div>
+               <div class="borders bold even d-none d-sm-block col-sm-2">Expire</div>
+               <div class="borders bold even d-none d-sm-block col-sm-2">Status</div> 
+               <div class="borders bold even d-none d-sm-block col-sm-2">Renowals</div>
           </div>
-          <div class="field_expire borders {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %} col-12 col-sm-2">
-               {{ loan.expire.date }}
-          </div>
-          <div class="field_status borders {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %} col-12 col-sm-2">
-               
-               <form method="post" class="form-inline">
-               {{ loan.show_status }}
-               {% if loan.status == 1 %}
-                    <input type="hidden" name="id" value="{{ loan.id }}">
-                    <input type="hidden" name="action" value="remove_reserved">
-                    <button class="btn btn-link book-link" type="submit"><i class="fa-solid fa-circle-minus"></i></button>
-                    {% csrf_token %}    
-               {% endif %}
-               {% if loan.status == 4 %}
-               <input type="hidden" name="id" value="{{ loan.id }}">
-               <input type="hidden" name="action" value="add_reserved">
-               <button class="btn btn-link book-link" type="submit"><i class="fa-solid fa-circle-plus"></i></button>
-               {% csrf_token %}    
-               {% endif %}
-               {% if loan.status == 3 %}
-               <input type="hidden" name="id" value="{{ loan.id }}">
-               <input type="hidden" name="action" value="add_reserved">
-               <button class="btn btn-link book-link" type="submit"><i class="fa-solid fa-circle-plus"></i></button>
-               {% csrf_token %}    
-               {% endif %}               
-               </form> 
-          </div>
-          <div class="field_renowals borders {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %} col-12 col-sm-2">
-               {% if "Loan" in loan.show_status %}
-                    {% if loan.number_renowals < 3 %}
+          <div class="row"> 
+               {% for loan in myloans %}
+                    <div class="field_author borders {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %} col-12 col-sm-3">
+                         {{ loan.book.author }}
+                    </div>
+                    <div class="field_title borders {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %} col-12 col-sm-3 italic">
+                         <a  class="book-link" href="{% url 'book_detail' loan.book.slug %}">{{ loan.book.title }}</a>
+                    </div>
+                    <div class="field_expire borders {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %} col-12 col-sm-2">
+                         {{ loan.expire.date }}
+                    </div>
+                    <div class="field_status borders {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %} col-12 col-sm-2">
+                         
                          <form method="post" class="form-inline">
-                         {{ loan.number_renowals }}
+                         {{ loan.show_status }}
+                         {% if loan.status == 1 %}
+                              <input type="hidden" name="id" value="{{ loan.id }}">
+                              <input type="hidden" name="action" value="remove_reserved">
+                              <button class="btn btn-link book-link" type="submit"><i class="fa-solid fa-circle-minus"></i></button>
+                              {% csrf_token %}    
+                         {% endif %}
+                         {% if loan.status == 4 %}
                          <input type="hidden" name="id" value="{{ loan.id }}">
-                         <input type="hidden" name="action" value="add_renowals">
-                         <button class="btn btn-link book-link" type="submit"><i class="fa-solid fa-calendar-plus"></i></button>
-                         {% csrf_token %} 
-                         </form>  
-                    {% else %}
-                         {{ loan.number_renowals }}
-                    {% endif %}
-               {% else %}
-                    {{ loan.number_renowals }}
-               {% endif %}
-                   
+                         <input type="hidden" name="action" value="add_reserved">
+                         <button class="btn btn-link book-link" type="submit"><i class="fa-solid fa-circle-plus"></i></button>
+                         {% csrf_token %}    
+                         {% endif %}
+                         {% if loan.status == 3 %}
+                         <input type="hidden" name="id" value="{{ loan.id }}">
+                         <input type="hidden" name="action" value="add_reserved">
+                         <button class="btn btn-link book-link" type="submit"><i class="fa-solid fa-circle-plus"></i></button>
+                         {% csrf_token %}    
+                         {% endif %}               
+                         </form> 
+                    </div>
+                    <div class="field_renowals borders {% if forloop.counter|divisibleby:2 %}even{% else %}odd{% endif %} col-12 col-sm-2">
+                         {% if "Loan" in loan.show_status %}
+                              {% if loan.number_renowals < 3 %}
+                                   <form method="post" class="form-inline">
+                                   {{ loan.number_renowals }}
+                                   <input type="hidden" name="id" value="{{ loan.id }}">
+                                   <input type="hidden" name="action" value="add_renowals">
+                                   <button class="btn btn-link book-link" type="submit"><i class="fa-solid fa-calendar-plus"></i></button>
+                                   {% csrf_token %} 
+                                   </form>  
+                              {% else %}
+                                   {{ loan.number_renowals }}
+                              {% endif %}
+                         {% else %}
+                              {{ loan.number_renowals }}
+                         {% endif %} 
+                    </div>
+               {% endfor %}
           </div>
-     {% endfor %}
-</div>
+     {% endif %}
 
 </div>
 
