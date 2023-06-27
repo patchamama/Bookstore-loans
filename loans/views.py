@@ -9,10 +9,13 @@ from django.db.models import Q
 
 
 class BookList(generic.ListView):
+
     model = Book
     queryset = Book.objects.order_by('-created_on')
     template_name = 'index.html'
     paginate_by = 12
+
+    
 
     def post(self, request, *args, **kwargs):
         if ('q' in request.POST):
