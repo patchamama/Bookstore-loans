@@ -7,12 +7,30 @@ The purpose of the application is to manage book loans: reservations, loans, ext
 The idea is that anyone can initially reserve a book and after the reservation, the user has up to 7 days to pick up the physical book. Once the book is picked up, the administrator (bookseller) will be able to change the status of the book from reserved to loan, having a period of 30 days with the loan and it is possible to extend the loan up to 3 times (with a maximum of 3 months). To request a loan (reservation) you must be registered on the site. 
 Once the book is returned, the site administrator can change the returned status and it would be available for new reservations and loans. It is also possible to cancel the reservation of a book from the book details area or from the loan page.
 
+![books-status](docs/images/books-status.png)
+
 You can view the live site here:-  https://bookstore-loans-804dfdc18356.herokuapp.com/
 
 ## **Live Site**
 
 ![image](assets/features/screenshots.png)
 
+
+# **Table of Contents**
+
+  * [**Live Site**](#--live-site--)
+  * [**Repository**](#--repository--)
+  * [**User Stories**](#--user-stories--)
+  * [**Features**](#--features--)
+    + [**Fonts**](#--fonts--)
+    + [**Existing Features and responsiveness**](#--existing-features-and-responsiveness--)
+    + [**Future Features**](#--future-features--)
+- [**Testing**](#--testing--)
+- [**Development**](#--development--)
+  * [**Basics to get up and running**](#--basics-to-get-up-and-running--)
+- [**Deployment**](#--deployment--)
+- [**Technologies Used**](#--technologies-used--)
+- [**Credits**](#--credits--)
 
 ## **Repository**
 
@@ -75,7 +93,7 @@ I wanted a simple and direct style to the information. The home page shows the c
 
 The navigation bar is maintained on all pages, creating a unity. The book covers and title are shown with a link to directly access the book details and additional relevant information such as the number of books available for loan and number of comments is displayed. The pagination of the home page is 4 columns repeating in 3 rows allowing a maximum of 12 books to be displayed.
 
-![home](docs/images/home_screenshots.png)
+![home](docs/images/home-screenshots.png)
 
 ![pagination](docs/images/home_screenshots2.png)
 </details>
@@ -105,7 +123,7 @@ This page allows registered users to log in to use the site's functions: add or 
 
 - Mobile:
 
-![signin-m](docs/images/singin_m.png)
+![signin-m](docs/images/singin-m.png)
 </details>
 
 <details>
@@ -309,6 +327,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 - Tutor Support
 - Slack community
 - Stackoverflow
+- Templates as base used: https://github.com/Code-Institute-Solutions/django-blog-starter-files
 - Image to not cover: https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png
 - To update the default user field in a loan with the currently logged in user, we have used the ideas of: https://stackoverflow.com/questions/4670783/make-the-user-in-a-model-default-to-the-current-user
 - To run a task at application startup (check for loans with expired deadlines and update): https://stackoverflow.com/questions/6791911/execute-code-when-django-starts-once-only
