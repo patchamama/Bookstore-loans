@@ -8,6 +8,9 @@ STATUS = ((1, "Reserved"), (2, "Loaned"), (3, "Returned"), (4, "Canceled"), (5, 
 
 
 class Book(models.Model):
+    """
+    Model with content of books 
+    """
     title = models.CharField(max_length=150, unique=False)
     slug = models.SlugField(max_length=155, unique=True)
     author = models.CharField(max_length=150, unique=False)
@@ -29,9 +32,11 @@ class Book(models.Model):
         ordering = ["-created_on"]
 
     def __str__(self):
+        """Info showed in home and bookdetail"""
         return f"{self.author} - {self.title} ({self.number_of_items} books, {self.items_to_loan} to loans)"
 
     def items_available_to_loan(self):
+        """Info showed in home and bookdetail"""
         books_on_loan = (
             self.items_to_loan - self.book_loans.filter(status__lt=3).count()
         )
@@ -41,11 +46,15 @@ class Book(models.Model):
             return "0"
 
     def comments_approved(self):
+        """Info showed in home and bookdetail"""
         no_comments = self.book_comments.filter(approved=True).count()
         return no_comments
 
 
 class Comment(models.Model):
+    """
+    Model with info of comments
+    """
     book = models.ForeignKey(
         Book, on_delete=models.CASCADE, related_name="book_comments"
     )
@@ -60,18 +69,24 @@ class Comment(models.Model):
         ordering = ["created_on"]
 
     def __str__(self):
+        """Info showed in bookdetail"""
         return f"Comment {self.comment} by {self.name}"
 
 
 def add_one_month_at_today():
+    """function to inc 30 days when thereis extension of loans"""
     return timezone.now() + timedelta(days=30)
 
 
 def add_one_week_at_today():
+    """function to inc 7 days when thereis a reservation"""
     return timezone.now() + timedelta(days=7)
 
 
 class Loan(models.Model):
+    """
+    Model with info for Loans
+    """
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="book_loans")
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_loans")
     expire = models.DateTimeField(default=add_one_week_at_today, blank=True)
@@ -85,6 +100,10 @@ class Loan(models.Model):
         ordering = ["created_on"]
 
     def show_status(self):
+        """
+        Show the Status of the loan: 
+        1 Reserved, 2 Loaned, 3 Returned, 4 Canceled, 5 Lost"
+        """
         for (key, val) in STATUS:
             if key == self.status:
                 return val

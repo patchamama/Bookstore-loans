@@ -123,7 +123,7 @@ This page allows registered users to log in to use the site's functions: add or 
 
 - Mobile:
 
-![signin-m](docs/images/singin-m.png)
+![signin-m](docs/images/signin-m.png)
 </details>
 
 <details>

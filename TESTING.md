@@ -57,6 +57,12 @@ The Python files were validated using the [Pep8 linter](https://pep8ci.herokuapp
 
 </details>
 
+## **Program Testing**
+
+Some tests were programmed to check data integrity in models, views and forms.
+
+![tests.py](docs/images/tests.py.png)
+
 ## **Manual Testing**
 
 | Registration | Expected results |

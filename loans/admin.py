@@ -5,8 +5,8 @@ from django.contrib.auth import get_user_model
 
 
 @admin.register(Book)
-class PostAdmin(SummernoteModelAdmin):
-
+class BookAdmin(SummernoteModelAdmin):
+    """Allows admin to manage Book via the admin panel"""
     list_display = ("title", "author", "items_to_loan", "created_on")
     search_fields = ["title", "author", "description", "features"]
     prepopulated_fields = {"slug": ("title",)}
@@ -16,7 +16,7 @@ class PostAdmin(SummernoteModelAdmin):
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-
+    """Allows admin to manage Comment via the admin panel"""
     list_display = ("name", "comment", "book", "created_on", "approved")
     search_fields = ["name", "email", "comment"]
     list_filter = ("created_on", "approved")
@@ -28,6 +28,7 @@ class CommentAdmin(admin.ModelAdmin):
 
 @admin.register(Loan)
 class LoanAdmin(admin.ModelAdmin):
+    """Allows admin to manage Loan via the admin panel"""
     def get_changeform_initial_data(self, request):
         get_data = super(LoanAdmin, self).get_changeform_initial_data(request)
         get_data["user"] = request.user.pk

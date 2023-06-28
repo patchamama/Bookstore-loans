@@ -6,7 +6,7 @@ class LoansConfig(AppConfig):
     name = 'loans'
 
     def ready(self):
-
+        # Update the status of the book with date expired
         from .models import Loan
         from django.utils import timezone
         from django.db.models import Q

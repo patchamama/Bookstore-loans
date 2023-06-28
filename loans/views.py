@@ -7,16 +7,22 @@ from django.utils import timezone
 from datetime import timedelta
 from django.db.models import Q
 from django.views.generic.base import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class BookList(generic.ListView):
-
+    """
+    The view is used to display book covers and some content on the home page
+    """
     model = Book
     queryset = Book.objects.order_by("-created_on")
     template_name = "index.html"
     paginate_by = 12
 
     def post(self, request, *args, **kwargs):
+        """
+        Function that filters the search in the navbar
+        """
         if "q" in request.POST:
             search = request.POST["q"]
             qsearch = Q(
@@ -38,13 +44,24 @@ class BookList(generic.ListView):
 
 
 class BookDetail(View):
+    """
+    The view displays details of a selected book and allows 
+    you to reserve books for loan or comment on books.
+    """
     def get(self, request, slug, *args, **kwargs):
+        """
+        Function that returns the selected book and action messages.
+        """
         queryset = Book.objects
         book = get_object_or_404(queryset, slug=slug)
         comments = book.book_comments.filter(approved=True).order_by("-created_on")
-        loans = book.book_loans.filter(user=request.user, status__lt=3).order_by(
-            "-created_on"
-        )
+        if (request.user.is_authenticated):
+            loans = book.book_loans.filter(user=request.user, status__lt=3).order_by(
+            "-created_on")
+        else:
+            loans = []
+
+        #Message to show in the template of one action
         message_action = ""
 
         return render(
@@ -61,6 +78,11 @@ class BookDetail(View):
         )
 
     def post(self, request, slug, *args, **kwargs):
+        """
+        Function that saves changes requested 
+        in the view: reserve a book, delete a 
+        reservation, delete a comment
+        """
         queryset = Book.objects
         book = get_object_or_404(queryset, slug=slug)
         comments = book.book_comments.filter(approved=True).order_by(
@@ -69,10 +91,13 @@ class BookDetail(View):
             "-created_on"
         )
 
+        #Message to show in the template of one action
         message_action = ""
         is_commented = False
 
+        
         if "action" in request.POST:
+            # Reserve a book
             if request.POST["action"] == "add_reserved":
                 loandata = Loan.objects.create(
                     expire=timezone.now() + timedelta(days=7),
@@ -87,29 +112,26 @@ class BookDetail(View):
                 ).order_by("-created_on")
                 message_action = "Reserve added!"
 
+            # Delete a reservation
             if request.POST["action"] == "remove_reserved":
                 if Loan.objects.filter(user=request.user, book=book, status=1).exists():
                     Loan.objects.filter(user=request.user, book=book, status=1).delete()
-                    # loandata = Loan.objects.get(user=request.user, book=book, status=1)
-                    # loandata.number_renowals = 0
-                    # loandata.expire = timezone.now()
-                    # loandata.status = 4 ## 1 Reserved to (4, "Canceled")
-                    # loandata.save()
                     loans = book.book_loans.filter(
                         user=request.user, status__lt=3
                     ).order_by("-created_on")
                     message_action = "Reserve removed!"
 
+            #Delete a comment
             if request.POST["action"] == "delete_comment":
                 comment_id = request.POST["id"]
-                if Comment.objects.filter(id=comment_id).exists():
-                    Comment.objects.filter(id=comment_id).delete()
-                    # Comment.objects.filter(name=request.user, book=book).delete()
+                if Comment.objects.filter(name=request.user, id=comment_id).exists():
+                    Comment.objects.filter(name=request.user, id=comment_id).delete()
                     comments = Comment.objects.filter(book=book).order_by(
                         "-created_on")
                     message_action = "Comment deleted!"
 
         else:
+            # Form comment submit (not action in post)
             comment_form = CommentForm(data=request.POST)
             if comment_form.is_valid():
                 comment_form.instance.email = request.user.email
@@ -135,12 +157,23 @@ class BookDetail(View):
         )
 
 
-class LoanDetail(generic.ListView):
+
+class LoanDetail(LoginRequiredMixin, generic.ListView):
+    """
+    View that allows you to visualize loans, their status 
+    and perform actions: cancel reservation, extend loan...
+    """
+
     def get(self, request, *args, **kwargs):
-        queryset = Loan.objects
+        """
+        Function that returns all the loans of the active user.
+        """
+        queryset = Loan.objects            
         loans = Loan.objects.filter(user=self.request.user).order_by(
             "-expire", "status"
-        )
+            )
+
+        #Action to show in template
         message_action = ""
 
         return render(
@@ -150,38 +183,39 @@ class LoanDetail(generic.ListView):
         )
 
     def post(self, request, *args, **kwargs):
+        """
+        Function that allows you to change the status of a loan
+        """
         queryset = Loan.objects
         loans = Loan.objects.filter(user=self.request.user).order_by(
             "-expire", "status"
         )
         message_action = ""
 
-        if request.POST["action"] == "remove_reserved":
-            record_id = request.POST["id"]
-            # loandata = get_object_or_404(Loan, id=record_id)
-            if Loan.objects.filter(id=record_id).exists():
-                Loan.objects.filter(id=record_id).delete()
-                message_action = "Reserve removed!"
-                # loandata = Loan.objects.get(id=record_id)
-                # loandata.number_renowals = 0
-                # loandata.expire = timezone.now()
-                # loandata.status = 4 ## 1 Reserved to (4, "Canceled")
-                # loandata.save()
+        # Process different actions en view
         if "action" in request.POST:
+
+            #Remove reserved (loan deleted)
+            if request.POST["action"] == "remove_reserved":
+                record_id = request.POST["id"]
+                if Loan.objects.filter(id=record_id).exists():
+                    Loan.objects.filter(id=record_id).delete()
+                    message_action = "Reserve removed!"
+
+            #+Loan extension
             if request.POST["action"] == "add_renowals":
                 record_id = request.POST["id"]
                 if Loan.objects.filter(id=record_id).exists():
-                    # Loan.objects.filter(id=record_id).delete()
                     loandata = Loan.objects.get(id=record_id)
                     loandata.expire = loandata.expire + timedelta(days=30)
                     loandata.number_renowals = loandata.number_renowals + 1
                     loandata.save()
                     message_action = "Renowals added!"
 
+            #Add reservation of Loan
             if request.POST["action"] == "add_reserved":
                 record_id = request.POST["id"]
                 if Loan.objects.filter(id=record_id).exists():
-                    # Loan.objects.filter(id=record_id).delete()
                     loandata = Loan.objects.get(id=record_id)
                     loandata.expire = timezone.now() + timedelta(days=7)
                     loandata.number_renowals = 0
@@ -196,19 +230,24 @@ class LoanDetail(generic.ListView):
         )
 
 
+
 class Error400View(TemplateView):
+    """Error 400 template to be show"""
     template_name = "templates/400.html"
 
 
 class Error403View(TemplateView):
+    """Error 403 template to be show"""
     template_name = "templates/403.html"
 
 
 class Error404View(TemplateView):
+    """Error 404 template to be show"""
     template_name = "templates/404.html"
 
 
 class Error500View(TemplateView):
+    """Error 500 template to be show"""
     template_name = "templates/500.html"
 
     @classmethod

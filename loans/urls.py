@@ -9,6 +9,7 @@ urlpatterns = [
     path('<slug:slug>/', views.BookDetail.as_view(), name='book_detail'),
 ]
 
+#Errors Events register
 handler400 = Error400View.as_view()
 handler403 = Error403View.as_view()
 handler404 = Error404View.as_view()
