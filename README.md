@@ -1,3 +1,21 @@
+## Bookstore - Loans
+
+**Bookstore - Loans** website is developed using Django Framework as part of Portfolio Project 4 for my Diploma in Full Stack Software Development at Code Institute.
+
+The purpose of the application is to manage book loans: reservations, loans, extensions and returns. It also allows commenting on books based on their availability in a bookstore, or in a public or private library.
+
+You can view the live site here:-  https://bookstore-loans-804dfdc18356.herokuapp.com/
+
+![image](assets/features/screenshots.PNG)
+
+
+
+
+
+
+
+
+
 ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
 
 Welcome,

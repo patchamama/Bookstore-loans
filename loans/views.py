@@ -6,6 +6,7 @@ from .forms import CommentForm
 from django.utils import timezone
 from datetime import timedelta
 from django.db.models import Q
+from django.views.generic.base import TemplateView
 
 
 class BookList(generic.ListView):
@@ -190,5 +191,25 @@ class LoanDetail(generic.ListView):
             },
         ) 
 
+class Error400View(TemplateView): 
+    template_name = "templates/400.html"
+
+class Error403View(TemplateView): 
+    template_name = "templates/403.html"
+
+class Error404View(TemplateView): 
+    template_name = "templates/404.html"
+
+class Error500View(TemplateView): 
+    template_name = "templates/500.html"
+
+    @classmethod
+    def as_error_view(cls):
+        v = cls.as_view()
+        def view(request):
+            r = v(request)
+            r.render()
+            return r
+        return view
 
 
