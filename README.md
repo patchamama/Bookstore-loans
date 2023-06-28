@@ -1,6 +1,6 @@
-# Welcome to **[Bookstore - Loans](https://bookstore-loans-804dfdc18356.herokuapp.com/)**
+# Welcome to [Bookstore - Loans](https://bookstore-loans-804dfdc18356.herokuapp.com/)
 
-**Bookstore - Loans** website is developed using Django Framework as part of Portfolio Project 4 for my Diploma in Full Stack Software Development at Code Institute.
+**Bookstore - Loans**  website is developed using Django Framework as part of Portfolio Project 4 for my Diploma in Full Stack Software Development at Code Institute.
 
 The purpose of the application is to manage book loans: reservations, loans, extensions and returns. It also allows commenting on books based on their availability in a bookstore, or in a public or private library.
 
@@ -11,38 +11,45 @@ Once the book is returned, the site administrator can change the returned status
 
 You can view the live site here:-  https://bookstore-loans-804dfdc18356.herokuapp.com/
 
-## **Live Site**
+## Live Site
 
 ![image](docs/images/screenshots.png)
 
 
-# **Table of Contents**
+# Table of Contents
 
-  * [**Live Site**](#--live-site--)
-  * [**Repository**](#--repository--)
-  * [**User Stories**](#--user-stories--)
-  * [**Features**](#--features--)
-    + [**Fonts**](#--fonts--)
-    + [**Existing Features and responsiveness**](#--existing-features-and-responsiveness--)
-    + [**Future Features**](#--future-features--)
-- [**Testing**](#--testing--)
-- [**Development**](#--development--)
-  * [**Basics to get up and running**](#--basics-to-get-up-and-running--)
-- [**Deployment**](#--deployment--)
-- [**Technologies Used**](#--technologies-used--)
-- [**Credits**](#--credits--)
+- [Table of Contents](#table-of-contents)
+  * [Repository](#repository)
+  * [Agile Methodology](#agile-methodology)
+  * [Features](#features)
+    + [Fonts](#fonts)
+    + [Existing Features and responsiveness](#existing-features-and-responsiveness)
+    + [Future Features](#future-features)
+- [Testing](#testing)
+- [Development](#development)
+  * [Basics to get up and running](#basics-to-get-up-and-running)
+- [Deployment](#deployment)
+- [Technologies Used](#technologies-used)
+- [Credits](#credits)
+- [Acknowledgments](#acknowledgments)
 
-## **Repository**
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
+
+
+## Repository
 
 https://github.com/patchamama/PP4-Bookstore-loans
 
-## **User Stories**
+## Agile Methodology
+
+Github projects was used to manage the development process using an agile approach. 
 
 - [Kanban board](https://github.com/users/patchamama/projects/4/views/1)
 
 - [User stories](https://github.com/patchamama/PP4-Bookstore-loans/issues)
 
-## **Features**
+## Features
 
 For the creation of the project we took as a base the django project start template (https://github.com/Code-Institute-Solutions/django-blog-starter-files) because of its similarity to the ideas of the site in terms of colors and structure, with some modifications.
 
@@ -68,11 +75,11 @@ For the creation of the project we took as a base the django project start templ
 The initial color palette of the chosen base templates (https://github.com/Code-Institute-Solutions/django-blog-starter-files) was maintained. 
 </details>
 
-### **Fonts**
+### Fonts
 
 I used Roboto and Lora to achieve the type of text I was looking for for this website, with a simple and classic style.
 
-### **Existing Features and responsiveness**
+### Existing Features and responsiveness
 
 <details>
 <summary><strong>Navigation</strong></summary>
@@ -145,7 +152,6 @@ This page allows the user to sign out to keep their features safe from a third p
 
 When the user clicks on a book cover or title, this is the page they will be directed to in order to view the details of the book.
 Only authenticated users can access the book details to borrow or comment.
-Non-authenticated users will not have access to this section.
 Authenticated users, on the other hand, can comment - their comment will be displayed on the page upon administrator approval. There is also the possibility to delete previously approved personal comments, if the user is the author of the comment.
 
 - Desktop
@@ -187,7 +193,7 @@ I created custom error pages (400, 403, 404, 500) that is equivalent in style to
 ![error404](docs/images/error404-m.png)
 </details>
 
-### **Future Features**
+### Future Features
 
 - The possibility for users to rate a book.
 
@@ -208,25 +214,25 @@ I created custom error pages (400, 403, 404, 500) that is equivalent in style to
 - Validate before making a reservation if there are books available in case several simultaneous book reservations are made.
 
 
-# **Testing**
+# Testing
 
 Testing details can be found separately in the [TESTING.md](TESTING.md) file.
 
-# **Development**
+# Development
 
-## **Basics to get up and running**
+## Basics to get up and running
 
 - Navigate to the [GitHub repository](https://github.com/patchamama/PP4-Bookstore-loans)
   or use [Code Institute's template](https://github.com/Code-Institute-Org/ci-full-template) to create your own workspace
 - Click on Gitpod and create workspace
 - Installations:
 
-**Install the server you will use when deploying to Heroku:**
+Install the server you will use when deploying to Heroku:
 ```sh
 pip3 install 'django<4' gunicorn
 ```
 
-**Install supporting libraries:**
+Install supporting libraries:
 - PostgreSQL & psycopg2:
 ```sh
 pip3 install dj_database_url==0.5.0 psycopg2
@@ -237,7 +243,7 @@ pip3 install dj_database_url==0.5.0 psycopg2
 pip3 install dj3-cloudinary-storage
 ```
 
-**Create files:**
+Create files:
 
 - requirements.txt:
 ```sh
@@ -270,7 +276,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 - for deployment in Heroku, you'll need to create Procfile
 
-# **Deployment**
+# Deployment
 
 - This project users [ElephantSQL](https://www.elephantsql.com/) as its database solution. How you can obtain one and wire it up to your repository:
     - Use your GitHub account to sign up
@@ -292,25 +298,25 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
     - Once created, navigate to *Settings*
     - Click on *Reveal Config Vars*
     - Add the keys and values from your env.py file
-    - Add **PORT:8000**
-    - Temporarily add **DISABLE_COLLECTSTATIC:1** - to be removed for final deployment
+    - Add PORT:8000
+    - Temporarily add DISABLE_COLLECTSTATIC:1 - to be removed for final deployment
     - You can choose between different methods of deployments on the *Deploy* tab
     - As well as *Manual* and *Automatic* deploys
 
 - The deployed page is available [here](https://bookstore-loans-804dfdc18356.herokuapp.com/)
 
-# **Technologies Used**
+# Technologies Used
 
 - Languages, Databases and Frameworks:
 
-    - **HTML**
-    - **CSS**
-    - **Javascript (Bootstrap JS)**
-    - **Python**
-    - **Django**
-    - **PostgreSQL**
-    - **psycopg2**
-    - **Bootstrap**
+    - HTML
+    - CSS
+    - Javascript (Bootstrap JS)
+    - Python
+    - Django
+    - PostgreSQL
+    - psycopg2
+    - Bootstrap
 
 - Other tools:
 
@@ -321,7 +327,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
     - [Heroku](https://www.heroku.com/)
     - [Table of contents generator](https://ecotrust-canada.github.io/markdown-toc/)
 
-# **Credits**
+# Credits
 
 - The [Think therefore I blog project](https://github.com/Code-Institute-Solutions/Django3blog) gave the basis of the whole project
 - Tutor Support
@@ -332,3 +338,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 - To update the default user field in a loan with the currently logged in user, we have used the ideas of: https://stackoverflow.com/questions/4670783/make-the-user-in-a-model-default-to-the-current-user
 - To run a task at application startup (check for loans with expired deadlines and update): https://stackoverflow.com/questions/6791911/execute-code-when-django-starts-once-only
 - Error 500: https://stackoverflow.com/questions/13633508/django-handler500-as-a-class-based-view 
+
+# Acknowledgments
+
+Many thanks to my mentor Sandeep for his support and advice. Also to the Code Institute for preparing the materials and providing a wide range of available means of learning for the students.
