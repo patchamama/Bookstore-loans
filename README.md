@@ -13,7 +13,7 @@ You can view the live site here:-  https://bookstore-loans-804dfdc18356.herokuap
 
 ## **Live Site**
 
-![image](assets/features/screenshots.png)
+![image](docs/images/screenshots.png)
 
 
 # **Table of Contents**
