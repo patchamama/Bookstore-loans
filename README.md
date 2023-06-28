@@ -4,11 +4,14 @@
 
 The purpose of the application is to manage book loans: reservations, loans, extensions and returns. It also allows commenting on books based on their availability in a bookstore, or in a public or private library.
 
+The idea is that anyone can initially reserve a book and after the reservation, the user has up to 7 days to pick up the physical book. Once the book is picked up, the administrator (bookseller) will be able to change the status of the book from reserved to loan, having a period of 30 days with the loan and it is possible to extend the loan up to 3 times (with a maximum of 3 months). To request a loan (reservation) you must be registered on the site. 
+Once the book is returned, the site administrator can change the returned status and it would be available for new reservations and loans. It is also possible to cancel the reservation of a book from the book details area or from the loan page.
+
 You can view the live site here:-  https://bookstore-loans-804dfdc18356.herokuapp.com/
 
 ## **Live Site**
 
-![image](assets/features/screenshots.PNG)
+![image](assets/features/screenshots.png)
 
 
 ## **Repository**
