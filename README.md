@@ -2,10 +2,10 @@
 
 **Bookstore - Loans**  website is developed using Django Framework as part of Portfolio Project 4 for my Diploma in Full Stack Software Development at Code Institute.
 
-The purpose of the application is to manage book loans: reservations, loans, extensions and returns. It also allows commenting on books based on their availability in a bookstore, or in a public or private library.
+The purpose of the application is to manage book loans: reservations, loans, extensions, and returns. It also allows commenting on books based on their availability in a bookstore, or a public or private library.
 
 The idea is that anyone can initially reserve a book and after the reservation, the user has up to 7 days to pick up the physical book. Once the book is picked up, the administrator (bookseller) will be able to change the status of the book from reserved to loan, having a period of 30 days with the loan and it is possible to extend the loan up to 3 times (with a maximum of 3 months). To request a loan (reservation) you must be registered on the site. 
-Once the book is returned, the site administrator can change the returned status and it would be available for new reservations and loans. It is also possible to cancel the reservation of a book from the book details area or from the loan page.
+Once the book is returned, the site administrator can change the returned status and it will be available for new reservations and loans. It is also possible to cancel the reservation of a book from the book details area or the loan page.
 
 ![books-status](docs/images/books-status.png)
 
@@ -43,7 +43,7 @@ https://github.com/patchamama/PP4-Bookstore-loans
 
 ## Agile Methodology
 
-Github projects was used to manage the development process using an agile approach. 
+GitHub projects were used to manage the development process using an agile approach. 
 
 - [Kanban board](https://github.com/users/patchamama/projects/4/views/1)
 
@@ -51,7 +51,7 @@ Github projects was used to manage the development process using an agile approa
 
 ## Features
 
-For the creation of the project we took as a base the django project start template (https://github.com/Code-Institute-Solutions/django-blog-starter-files) because of its similarity to the ideas of the site in terms of colors and structure, with some modifications.
+For the creation of the project, we took as a base the Django project start template (https://github.com/Code-Institute-Solutions/django-blog-starter-files) because of its similarity to the ideas of the site in terms of colors and structure, with some modifications.
 
 <details>
 <summary><strong>Database Structure</strong></summary>
@@ -84,7 +84,7 @@ I used Roboto and Lora to achieve the type of text I was looking for for this we
 <details>
 <summary><strong>Navigation</strong></summary>
 
-I wanted a simple and direct style to the information. The home page shows the covers and names of the books and from this information you can access to see the details.
+I wanted a simple and direct style to the information. The home page shows the covers and names of the books and from this information, you can access to see the details.
 
 - Desktop
 
@@ -98,7 +98,7 @@ I wanted a simple and direct style to the information. The home page shows the c
 <details>
 <summary><strong>Home page</strong></summary>
 
-The navigation bar is maintained on all pages, creating a unity. The book covers and title are shown with a link to directly access the book details and additional relevant information such as the number of books available for loan and number of comments is displayed. The pagination of the home page is 4 columns repeating in 3 rows allowing a maximum of 12 books to be displayed.
+The navigation bar is maintained on all pages, creating unity. The book covers and title are shown with a link to directly access the book details and additional relevant information such as the number of books available for loan and the number of comments displayed. The pagination of the home page is 4 columns repeating in 3 rows allowing a maximum of 12 books to be displayed.
 
 ![home](docs/images/home-screenshots.png)
 
@@ -122,7 +122,7 @@ This page allows the user to sign up to use the website's features by creating a
 <details>
 <summary><strong>Sign In page</strong></summary>
 
-This page allows registered users to log in to use the site's functions: add or delete comments, request book loans.
+This page allows registered users to log in to use the site's functions: add or delete comments and request book loans.
 
 - Desktop:
 
@@ -152,7 +152,7 @@ This page allows the user to sign out to keep their features safe from a third p
 
 When the user clicks on a book cover or title, this is the page they will be directed to in order to view the details of the book.
 Only authenticated users can access the book details to borrow or comment.
-Authenticated users, on the other hand, can comment - their comment will be displayed on the page upon administrator approval. There is also the possibility to delete previously approved personal comments, if the user is the author of the comment.
+Authenticated users, on the other hand, can comment - their comments will be displayed on the page upon administrator approval. There is also the possibility to delete previously approved personal comments if the user is the author of the comment.
 
 - Desktop
 
@@ -201,9 +201,9 @@ I created custom error pages (400, 403, 404, 500) that is equivalent in style to
 
 - Bookmark: ability to bookmark a book that they like.
 
-- Email verifiation: make email signup mandatory and verifying the user.
+- Email verification: make email signup mandatory and verify the user.
 
-- Social sign in: use Google or othern forms of social sign in features.
+- Social sign-in: use Google or other forms of social sign-in features.
 
 - Establish a maximum limit for book loans.
 
@@ -250,7 +250,7 @@ Create files:
 pip3 freeze --local > requirements.txt
 ```
 
-- create new django project:
+- create a new Django project:
 ```sh
 django-admin startproject bookstore .
 ```
@@ -274,7 +274,7 @@ os.environ['CLOUDINARY_URL']="Your Cloudinary API environment variable - see in 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 ```
 
-- for deployment in Heroku, you'll need to create Procfile
+- for deployment in Heroku, you'll need to create a Procfile
 
 # Deployment
 
@@ -284,9 +284,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
     - Select the *Tiny Turtle* (free) plan
     - You can leave the *Tags* empty
     - Select your region
-    - You can access the the database url and password by clicking on your database's name
+    - You can access the database URL and password by clicking on your database's name
 
-- This project uses [Cloudinary](https://cloudinary.com/) to store its media files since Heroku don't keep these files
+- This project uses [Cloudinary](https://cloudinary.com/) to store its media files since Heroku doesn't keep these files
     - Use your GitHub account to sign up
     - Copy your API environment variable
 
@@ -335,7 +335,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 - Stackoverflow
 - Templates as base used: https://github.com/Code-Institute-Solutions/django-blog-starter-files
 - Image to not cover: https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png
-- To update the default user field in a loan with the currently logged in user, we have used the ideas of: https://stackoverflow.com/questions/4670783/make-the-user-in-a-model-default-to-the-current-user
+- To update the default user field in a loan with the currently logged-in user, we have used the ideas of: https://stackoverflow.com/questions/4670783/make-the-user-in-a-model-default-to-the-current-user
 - To run a task at application startup (check for loans with expired deadlines and update): https://stackoverflow.com/questions/6791911/execute-code-when-django-starts-once-only
 - Error 500: https://stackoverflow.com/questions/13633508/django-handler500-as-a-class-based-view 
 
