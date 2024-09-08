@@ -150,7 +150,7 @@ This page allows the user to sign out to keep their features safe from a third p
 <details>
 <summary><strong>Book details page</strong></summary>
 
-When the user clicks on a book cover or title, this is the page they will be directed to in order to view the details of the book.
+When the user clicks on a book cover or title, this is the page where they will be directed to view the details of the book.
 Only authenticated users can access the book details to borrow or comment.
 Authenticated users, on the other hand, can comment - their comments will be displayed on the page upon administrator approval. There is also the possibility to delete previously approved personal comments if the user is the author of the comment.
 
@@ -182,7 +182,7 @@ This page is only accessible to authenticated users and allows you to view the l
 <details>
 <summary><strong>Custom Error pages</strong></summary>
 
-I created custom error pages (400, 403, 404, 500) that is equivalent in style to the other pages of the website, so it creates a coherent vibe.
+I created custom error pages (400, 403, 404, 500) that are equivalent in style to the other pages of the website, so it creates a coherent vibe.
 
 - Desktop:
 
