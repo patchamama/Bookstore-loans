@@ -11,6 +11,8 @@ Once the book is returned, the site administrator can change the returned status
 
 You can view the live site here:-  https://bookstore-loans-804dfdc18356.herokuapp.com/
 
+Analysis of the project: https://deepwiki.com/patchamama/Bookstore-loans
+
 ## Live Site
 
 ![image](docs/images/screenshots.png)
